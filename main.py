@@ -30,7 +30,7 @@ while not end_game:
     guess = input("Devine une lettre : ").lower()
     
     #Si l'utilisateur a entré une lettre qu'il a deja deviné, affiche la lettre et laissons le savoir 
-     if guess in display:
+    if guess in display:
         print(f"vous avez deja devine {guess}")
 
     #verifier la lettre devine
@@ -48,7 +48,7 @@ while not end_game:
             end_game = True
             print("Game over!")
 
-    Joindre tous les elements de la liste et les transformer en string
+    #Joindre tous les elements de la liste et les transformer en string
     print(f"{' '.join(display)}")
     
     #Verifier si l'utilisateur a obtenu toutes les lettres

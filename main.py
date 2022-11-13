@@ -2,22 +2,26 @@ import random
 word_list = ['putain', 'flacide', 'fils']
 chosen_word = random.choice(word_list)
 print(f'le mot est {chosen_word}')
-""" creer une liste vide display. Pour chaque lettre dans la liste chosen_word, ajouter un "_" dasn display. Si chosen_word est 'apple', display devrait etre ['_', '_', '_', '_', '_'] representant chaque lettre a deviner
-"""
+
 display = []
 word_length = len(chosen_word)
 for _ in range(word_length):
     display += '_'
 print(display)
+"""on utilise un while loop pour laisser l'utilisateur deviner encore. la boucle ne s'arrete que lorsque toutes les lettres ont ete devines dans 'chosen_word' et display n'a plus de '_'. Donc l'utilisateur a gagne."""
+end_game = False
+while not end_game:
+    guess = input("Devine une lettre : ").lower()
+    
+    #verifier la lettre devine
+    for position in range(word_length):
+        letter = chosen_word[position]
+        if guess == letter:
+            display[position] = letter
+        
+    print(display)
 
-guess = input("Devine une lettre : ").lower()
-
-""" on boucle sur chaque position dans chosen_word; Si chaqque lettre a cette position correspond a 'guess' donc met cette lettre dans isplay sur cette position. Si l'utilisateur devine 'p' et le mot choisi etait 'apple', donc display devrait etre ['_', 'p', 'p', '_', '_'] """
-
-for position in range(word_length):
-    letter = chosen_word[position]
-    if guess == letter:
-        display[position] = letter
-
-""" Affiche display et vous devez voir la lettre devinee correctement dans sa position et les autres remplaces par '_'"""
-print(display)
+    #verifie si il n'y a plus de '_' dans display. si c'est le cas, toutes les lettres ont ete devines 
+    if '_' not in display:
+        end_game = True
+        print("Vous avez gagné.")

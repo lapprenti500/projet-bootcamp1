@@ -12,10 +12,11 @@ word_length = len(chosen_word)
 
 end_game = False
 lives = 6
+point_error = 3
+vowel = ['a', 'i', 'o', 'u', 'y', 'e']
 
 #on importe le logo dans let_get_art et on l'affiche au demarrage du jeu
 print(logo)
-
 
 #tester le code
 print(f'le mot est {chosen_word}')
@@ -25,28 +26,38 @@ display = []
 for _ in range(word_length):
     display += '_'
 
-
 while not end_game:
     guess = input("Devine une lettre : ").lower()
-    
-    #Si l'utilisateur a entré une lettre qu'il a deja deviné, affiche la lettre et laissons le savoir 
-    if guess in display:
-        print(f"vous avez deja devine {guess}")
+    #Si la lettre est autre que l'alphabet
+    if not guess.isalpha():
+        print("Vous ne devez saisir que des lettres de l’alphabet.")
+        if not point_error < 0:
+            point_error -= 1
 
-    #verifier la lettre devine
-    for position in range(word_length):
-        letter = chosen_word[position]
-        if guess == letter:
-            display[position] = letter
+    # si la lettre n'est pas dans 'chosen_word', on affiche la lettre et on laisse savoir que ce n'est pas dans le mot
+    elif not guess in (display and chosen_word):
+        #Si la lettre est un consonne
+        if guess not in vowel:
+            if not lives < 0:
+                lives -= 1
+                lost = 1
+        else:
+            if not lives < 1:
+                lives -= 2
+                lost = 2
+        print(f"Vous avez devine {guess}, elle n'est pas dans le mot. Vous perdez {lost} tentative")
+    else:
+        # verifier la lettre devine
+        for position in range(word_length):
+            letter = chosen_word[position]
+            if guess == letter:
+                display[position] = letter
 
-    #Verifier si l'utilisateur a tort    
-    if not guess in chosen_word:
-        #si la lettre n'est pas dans 'chosen_word', on affiche la lettre et on laisse savoir que ce n'est pas dans le mot
-        print(f"Vous avez devine {guess}, elle n'est pas dans le mot. Vous perdez une vie")
+    if lives == 0:
+        end_game = True
+    elif point_error == 0 and (not lives == 0):
         lives -= 1
-        if lives == 0:
-            end_game = True
-            print("Game over!")
+        print(f"Il vous reste {lives}.")
 
     #Joindre tous les elements de la liste et les transformer en string
     print(f"{' '.join(display)}")

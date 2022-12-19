@@ -4,7 +4,7 @@ from let_get_art import logo, stages
 # Mettre a jour la liste word_list par les mots dans fichier mots.txt.
 
 path = r"F:\python\projet-bootcamp1\mots.txt"
-dwith open(path, "r") as f:
+with open(path, "r") as f:
     word_list = f.read().splitlines()
 chosen_word = random.choice(word_list)
 
@@ -19,7 +19,7 @@ vowel = ['a', 'i', 'o', 'u', 'y', 'e']
 print(logo)
 
 #tester le code
-print(f'le mot est {chosen_word}')
+#print(f'le mot est {chosen_word}')
 
 #creer des espaces blancs
 display = []
